@@ -12,22 +12,33 @@ const [input,setInput] = useState("")
         setInput(event.target.value);
 
         }
-        const handleAdd =(event : React.FormEvent)=>{
-            event.preventDefault()
+        const handleAdd =()=>{
+          
       
            const newTask={
             id:Date.now(),
             job:input,
             isDone:false
            }
-           addTask(newTask)
+         if(input != "")  {
+            addTask(newTask)
+        setInput("")
+        }
            
+        }
+        const handleKeyUp=(event : React.KeyboardEvent <HTMLInputElement>)=>{
+            if(event.key === "Enter"){
+            
+      
+          handleAdd()
+                
+            }
         }
    
   return (
   <div>
-        <input value={input} onChange={handleChange} type="text" className='border border-black py-2 px-4 mt-4'/>
-        <button onClick={handleAdd} type='button' className='bg-gray-600 text-white py-2 px-3 border border-gray-600 font-bold hover:bg-gray-800 text-md' >+</button>
+        <input value={input} onChange={handleChange} onKeyUp={handleKeyUp} type="text" className='border border-black py-2 px-4 mt-4'/>
+        <button onClick={handleAdd}  type='button' className='bg-gray-600 text-white py-2 px-3 border border-gray-600 font-bold hover:bg-gray-800 text-md' >+</button>
 
    
   </div>
